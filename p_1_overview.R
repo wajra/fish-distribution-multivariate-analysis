@@ -32,7 +32,8 @@ rec_species <- c('centropristis striata_Atl',
                  'tautoga onitis_Atl',
                  'stenotomus chrysops_Atl')
 # Filtering the 'dat' dataframe
-sp_data <- dat[dat$sppocean %in% rec_species, ]
+# sp_data <- dat[dat$sppocean %in% rec_species, ]
+sp_data <- dat %>% filter(sppocean %in% rec_species)
 
 # Now let's group the 'sp_data' dataframe and see how many
 # observations we have for each species
@@ -44,3 +45,16 @@ print(sp_data %>% count(sppocean))
 # Merge 'hauls' and 'sp_data'
 # Identify the continuous variables
 # Conduct preliminary LDA on the data
+
+dat <- dat[!(dat$wtcpue == 0 & dat$region == 'DFO_SoGulf'),] 
+dat$wtcpue[dat$wtcpue == 0] <- 0.0002
+sp_data$logwtcpue <- log(sp_data$wtcpue)
+
+sp_data <- sp_data %>% select(haulid, sppocean, Freq, wtcpue, logwtcpue)
+
+# Now we'll merge it with hauls
+# We'll use inner join
+sp_haul_data <- left_join(sp_data, hauls, by='haulid')
+
+sp_not_null <- sp_haul_data %>% filter(!is.na(year))
+
