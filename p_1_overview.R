@@ -50,11 +50,14 @@ dat <- dat[!(dat$wtcpue == 0 & dat$region == 'DFO_SoGulf'),]
 dat$wtcpue[dat$wtcpue == 0] <- 0.0002
 sp_data$logwtcpue <- log(sp_data$wtcpue)
 
+# Select only several relevant columns
 sp_data <- sp_data %>% select(haulid, sppocean, Freq, wtcpue, logwtcpue)
 
 # Now we'll merge it with hauls
 # We'll use inner join
 sp_haul_data <- left_join(sp_data, hauls, by='haulid')
 
+# 
 sp_not_null <- sp_haul_data %>% filter(!is.na(year))
 
+write.csv(sp_not_null, file="data/data_for_lda.csv")
