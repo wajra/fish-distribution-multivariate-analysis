@@ -45,4 +45,19 @@ get_season <- function(x){
   
 }
 
+
 # season_list <- purrr::map(sp_obs_data$month, get_season)
+sp_obs_data[, "season"] <- NA
+sp_obs_data$season[sp_obs_data$month %in% c(2,3,4,5)] <- 'Spring'
+sp_obs_data$season[sp_obs_data$month %in% c(6,7,8)] <- 'Summer'
+sp_obs_data$season[sp_obs_data$month %in% c(9,10,11,12)] <- 'Fall'
+
+# sp_obs_data[,season := get_season(month)]
+
+# sp_obs_data2 <- sp_obs_data %>%
+#  mutate("season" = get_season(month))
+
+sp_black_sea_bass <- sp_obs_data %>% 
+  filter(sppocean == 'centropristis striata_Atl')
+
+write.csv(sp_black_sea_bass, file='data/black_sea_bass_with_seasons.csv')
