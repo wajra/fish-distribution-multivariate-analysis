@@ -141,3 +141,5 @@ ggplot(lda_df_spring, aes(x=LD1, y=LD2)) +
 # As can be seen from the plots, the fact that these species share similar habitats throughout the year
 # is well reflected graphically through discrminant analysis
 
+
+# The next stage will be adding a GLM
