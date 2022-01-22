@@ -4,3 +4,8 @@ We'll be using multivariate statistical methods to analyze if several commercial
 
 ## Packages used
 The following packages will be used
+1. Tidyverse
+
+
+## New features for GLM
+We'll be using mixed modeling approach to determine habitat relationships
